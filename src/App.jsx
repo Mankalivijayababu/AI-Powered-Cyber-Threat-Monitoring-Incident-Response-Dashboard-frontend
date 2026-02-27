@@ -7,6 +7,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import LiveAttackMap from "./pages/LiveAttackMap";
 import AdminUsers from "./pages/AdminUsers";
 import IncidentManager from "./pages/IncidentManager";   
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 

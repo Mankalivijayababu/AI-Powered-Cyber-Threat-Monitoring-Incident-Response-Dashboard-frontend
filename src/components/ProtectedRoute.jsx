@@ -1,20 +1,25 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 
-export default function ProtectedRoute({ children }) {
-  const { user, loading } = useAuth();
+const ProtectedRoute = ({ children }) => {
 
-  if (loading) {
-    return (
-      <div style={{ color: "white", padding: 40 }}>
-        Loading authentication…
-      </div>
-    );
+  const token = localStorage.getItem("token");
+  const tokenTime = localStorage.getItem("tokenTime");
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
   }
 
-  if (!user) {
+  // token expiry check (1 hour)
+  const now = Date.now();
+  const oneHour = 60 * 60 * 1000;
+
+  if (now - tokenTime > oneHour) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("tokenTime");
     return <Navigate to="/login" replace />;
   }
 
   return children;
-}
+};
+
+export default ProtectedRoute;
