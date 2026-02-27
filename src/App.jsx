@@ -1,25 +1,24 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Logs from "./pages/Logs";
 import Alerts from "./pages/Alerts";
-import ProtectedRoute from "./routes/ProtectedRoute";
 import LiveAttackMap from "./pages/LiveAttackMap";
 import AdminUsers from "./pages/AdminUsers";
-import IncidentManager from "./pages/IncidentManager";   
+import IncidentManager from "./pages/IncidentManager";
+
 import ProtectedRoute from "./components/ProtectedRoute";
-
-
-
-
 
 export default function App() {
   return (
     <Routes>
-      {/* Public route */}
+
+      {/* Public Route */}
       <Route path="/login" element={<Login />} />
 
-      {/* Protected routes */}
+      {/* Protected Routes */}
+
       <Route
         path="/dashboard"
         element={
@@ -28,11 +27,33 @@ export default function App() {
           </ProtectedRoute>
         }
       />
-      <Route path="/live-map" element={<LiveAttackMap />} />
-      <Route path="/admin/users" element={<AdminUsers />} />
-      <Route path="/incidents" element={<IncidentManager />} />
-   
-      
+
+      <Route
+        path="/live-map"
+        element={
+          <ProtectedRoute>
+            <LiveAttackMap />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/users"
+        element={
+          <ProtectedRoute>
+            <AdminUsers />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/incidents"
+        element={
+          <ProtectedRoute>
+            <IncidentManager />
+          </ProtectedRoute>
+        }
+      />
 
       <Route
         path="/logs"
@@ -52,11 +73,9 @@ export default function App() {
         }
       />
 
-      {/* Default / fallback */}
-      <Route
-        path="*"
-        element={<Navigate to="/dashboard" replace />}
-      />
+      {/* Default fallback */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
+
     </Routes>
   );
 }
