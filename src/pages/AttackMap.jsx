@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://ai-powered-cyber-threat-monitoring.onrender.com");
 
 export default function AttackMap() {
   const [attacks, setAttacks] = useState([]);
